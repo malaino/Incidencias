@@ -686,11 +686,11 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   // ═════════════════════════════════════════
-  // SUPABASE
+  // SUPABASE (Variable renombrada a supabaseClient)
   // ═════════════════════════════════════════
   const SUPABASE_URL = 'https://zqmuuqtoksewhpenzslh.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_zuN7I91_y_hVvtsrfj8Tlg_AwLIIAGr';
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   // ═════════════════════════════════════════
   // CONFIG UTM
@@ -805,7 +805,7 @@
   // SUPABASE: CARGA / SUSCRIPCIÓN
   // ═════════════════════════════════════════
   async function cargarIncidencias() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('incidencias')
       .select('*')
       .order('fecha', { ascending: false });
@@ -826,7 +826,7 @@
   }
 
   function suscribirseCambios() {
-    supabase
+    supabaseClient
       .channel('cambios-incidencias')
       .on('postgres_changes',
         { event: '*', schema: 'public', table: 'incidencias' },
@@ -836,7 +836,7 @@
   }
 
   async function guardarIncidenciaSupabase(inc) {
-    const { error } = await supabase.from('incidencias').insert([{
+    const { error } = await supabaseClient.from('incidencias').insert([{
       id: inc.id,
       tipo: inc.tipo,
       descripcion: inc.desc,
@@ -851,14 +851,14 @@
     }]);
     if (error) {
       console.error('Error guardando:', error);
-      alert('No se pudo guardar en la nube');
+      alert('No se pudo guardar en la nube: ' + error.message);
       return false;
     }
     return true;
   }
 
   async function actualizarIncidenciaSupabase(id, cambios) {
-    const { error } = await supabase.from('incidencias').update(cambios).eq('id', id);
+    const { error } = await supabaseClient.from('incidencias').update(cambios).eq('id', id);
     if (error) console.error('Error actualizando:', error);
   }
 
