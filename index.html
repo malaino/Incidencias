@@ -1427,14 +1427,23 @@
   // ═════════════════════════════════════════
   // INICIO
   // ═════════════════════════════════════════
+  
+  // 1. Primero dibujamos toda la interfaz para que los botones respondan rápido
   renderChipsTipo();
   renderExpTipos();
   initFechasExport();
   actualizarCoordsUI();
   actualizarBotonesFoto();
-  cargarCSV();
+  
+  // 2. Cargamos los datos de Supabase
   cargarIncidencias();
   suscribirseCambios();
+
+  // 3. Cargamos el CSV con un pequeño retraso para no congelar el móvil al arrancar
+  setTimeout(() => {
+    cargarCSV();
+  }, 500);
+
 </script>
 </body>
 </html>
