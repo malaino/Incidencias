@@ -11,7 +11,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.11.0/dist/proj4.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- NUEVA LIBRERÍA PARA CREAR ZIPS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
   <style>
@@ -325,7 +324,6 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       margin-bottom: 8px;
-      cursor: pointer;
       transition: border-color .15s, background .15s;
     }
     .item:hover { border-color: var(--border-2); background: var(--surface-2); }
@@ -334,8 +332,9 @@
       font-weight: 600; font-size: 13px;
       display: flex; justify-content: space-between; align-items: center;
       gap: 8px; color: var(--text);
+      cursor: pointer;
     }
-    .item .desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+    .item .desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; cursor: pointer; }
     .item .ubic {
       font-size: 11px; color: var(--accent); margin-top: 6px;
       font-family: 'SF Mono', Monaco, Consolas, monospace;
@@ -345,7 +344,7 @@
       font-size: 11px; color: var(--muted-2); margin-top: 8px;
       display: flex; justify-content: space-between; align-items: center; gap: 6px;
     }
-    .item .miniaturas { display: flex; gap: 6px; margin-top: 8px; }
+    .item .miniaturas { display: flex; gap: 6px; margin-top: 8px; cursor: pointer; }
     .item .miniaturas img {
       width: 42px; height: 42px; object-fit: cover;
       border-radius: 4px; border: 1px solid var(--border-2);
@@ -375,6 +374,18 @@
       font-family: inherit; letter-spacing: 0.02em;
     }
     .btn-reabrir:hover { background: rgba(245,158,11,.1); }
+    
+    /* NUEVO BOTÓN VER MAPA */
+    .btn-ver-mapa {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 10px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      font-family: inherit; letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .btn-ver-mapa:hover { background: rgba(56,189,248,.1); }
+    .btn-ver-mapa svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2; fill: none; }
 
     .empty-state {
       text-align: center; padding: 32px 16px;
@@ -405,7 +416,6 @@
       text-align: center; margin-top: 10px; letter-spacing: 0.01em;
     }
 
-    /* BOTÓN ZIP */
     .btn-zip {
       width: 100%; padding: 12px; border: none; border-radius: 6px;
       background: var(--surface-2); color: var(--accent);
@@ -674,7 +684,6 @@
         Descargar Excel
       </button>
 
-      <!-- NUEVO BOTÓN PARA DESCARGAR ZIP DE FOTOS -->
       <button class="btn-zip" id="btnExportarFotos">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar Fotos (ZIP)
@@ -969,24 +978,26 @@
         const ubic = (inc.carretera || inc.pk) ?
           `<div class="ubic">${inc.carretera || '—'} · PK ${inc.pk || '—'}</div>` : '';
         div.innerHTML = `
-          <div class="tipo">
+          <div class="tipo" onclick="window.verEnMapa('${inc.id}')">
             <span>${cfg.label}</span>
             <span class="badge ${inc.estado}">${inc.estado}</span>
           </div>
           ${ubic}
-          <div class="desc">${inc.desc || '<em>Sin descripción</em>'}</div>
-          ${minis ? `<div class="miniaturas">${minis}</div>` : ''}
+          <div class="desc" onclick="window.verEnMapa('${inc.id}')">${inc.desc || '<em>Sin descripción</em>'}</div>
+          ${minis ? `<div class="miniaturas" onclick="window.verEnMapa('${inc.id}')">${minis}</div>` : ''}
           <div class="meta">
             <span>Gravedad ${inc.gravedad}/5</span>
-            ${inc.estado === 'activa'
-              ? `<button class="btn-cerrar" onclick="event.stopPropagation();window.cerrarIncidencia('${inc.id}')">Cerrar</button>`
-              : `<button class="btn-reabrir" onclick="event.stopPropagation();window.reabrirIncidencia('${inc.id}')">Reabrir</button>`}
+            <div style="display:flex; gap:6px;">
+              <button class="btn-ver-mapa" onclick="event.stopPropagation();window.verEnMapa('${inc.id}')">
+                <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                Ver mapa
+              </button>
+              ${inc.estado === 'activa'
+                ? `<button class="btn-cerrar" onclick="event.stopPropagation();window.cerrarIncidencia('${inc.id}')">Cerrar</button>`
+                : `<button class="btn-reabrir" onclick="event.stopPropagation();window.reabrirIncidencia('${inc.id}')">Reabrir</button>`}
+            </div>
           </div>
         `;
-        div.onclick = () => {
-          map.setView([inc.lat, inc.lng], 16);
-          marcadores[inc.id]?.openPopup();
-        };
         items.appendChild(div);
       });
     }
@@ -994,6 +1005,59 @@
     document.getElementById('contador').textContent = visibles.length;
     actualizarInfoExport();
   }
+
+  // ═════════════════════════════════════════
+  // VER EN MAPA (NUEVO)
+  // ═════════════════════════════════════════
+  window.verEnMapa = function(id) {
+    const inc = incidencias.find(i => i.id === id);
+    if (!inc) return;
+    
+    // En PC, el mapa está en el panel. En móvil, usamos el modal.
+    if (window.innerWidth > 900) {
+      map.setView([inc.lat, inc.lng], 17);
+      marcadores[inc.id]?.openPopup();
+    } else {
+      if (!mapSelector) {
+        mapSelector = L.map('mapSelector', { zoomControl: true, tap: true });
+        const pnoaSel = L.tileLayer.wms('https://www.ign.es/wms-inspire/pnoa-ma', {
+          layers: 'OI.OrthoimageCoverage', format: 'image/jpeg', transparent: false,
+          attribution: 'PNOA © IGN', maxZoom: 20
+        });
+        const osmSel = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap', maxZoom: 19
+        });
+        pnoaSel.addTo(mapSelector);
+        L.control.layers({ "Ortofoto PNOA": pnoaSel, "Mapa de calles": osmSel }).addTo(mapSelector);
+      }
+      
+      document.getElementById('modalMapa').classList.add('abierto');
+      document.getElementById('instruccionMapa').style.display = 'none'; // Ocultar instrucción de centrar
+      document.getElementById('pinCentral').style.display = 'none'; // Ocultar pin
+      
+      mapSelector.setView([inc.lat, inc.lng], 17);
+      
+      // Añadir un marcador temporal en el modal para verlo
+      if (window.marcadorModal) mapSelector.removeLayer(window.marcadorModal);
+      window.marcadorModal = L.marker([inc.lat, inc.lng], { icon: crearIcono(inc) })
+        .addTo(mapSelector)
+        .bindPopup(popupHtml(inc))
+        .openPopup();
+
+      // Cambiar el botón de confirmar por uno de cerrar
+      const btnConfirmar = document.getElementById('btnConfirmarUbi');
+      btnConfirmar.textContent = 'Cerrar mapa';
+      btnConfirmar.onclick = () => {
+        document.getElementById('modalMapa').classList.remove('abierto');
+        if (window.marcadorModal) mapSelector.removeLayer(window.marcadorModal);
+        // Restaurar botones para cuando se use en el formulario de nueva incidencia
+        document.getElementById('instruccionMapa').style.display = 'block';
+        document.getElementById('pinCentral').style.display = 'block';
+        btnConfirmar.textContent = 'Confirmar aquí';
+        btnConfirmar.onclick = confirmarUbicacionFormulario;
+      };
+    }
+  };
 
   // ═════════════════════════════════════════
   // CERRAR / REABRIR
@@ -1005,7 +1069,7 @@
     
     inc.estado = 'cerrada';
     inc.cerradaEn = cerradaEn;
-    renderizarTodo(); // Actualiza la pantalla al instante
+    renderizarTodo();
     
     await actualizarIncidenciaSupabase(id, { estado: 'cerrada', cerrada_en: cerradaEn });
   };
@@ -1016,7 +1080,7 @@
     
     inc.estado = 'activa';
     delete inc.cerradaEn;
-    renderizarTodo(); // Actualiza la pantalla al instante
+    renderizarTodo();
     
     await actualizarIncidenciaSupabase(id, { estado: 'activa', cerrada_en: null });
   };
@@ -1112,12 +1176,19 @@
   }
 
   // ═════════════════════════════════════════
-  // MODAL MAPA
+  // MODAL MAPA (FORMULARIO)
   // ═════════════════════════════════════════
   let mapSelector = null;
 
   function abrirModalMapa() {
     document.getElementById('modalMapa').classList.add('abierto');
+    document.getElementById('instruccionMapa').style.display = 'block';
+    document.getElementById('pinCentral').style.display = 'block';
+    
+    const btnConfirmar = document.getElementById('btnConfirmarUbi');
+    btnConfirmar.textContent = 'Confirmar aquí';
+    btnConfirmar.onclick = confirmarUbicacionFormulario;
+
     if (!mapSelector) {
       mapSelector = L.map('mapSelector', {
         center: puntoSeleccionado ? [puntoSeleccionado.lat, puntoSeleccionado.lng] : [40.4168, -3.7038],
@@ -1140,18 +1211,21 @@
 
   function cerrarModalMapa() {
     document.getElementById('modalMapa').classList.remove('abierto');
+    if (window.marcadorModal && mapSelector) {
+      mapSelector.removeLayer(window.marcadorModal);
+    }
+  }
+
+  function confirmarUbicacionFormulario() {
+    const centro = mapSelector.getCenter();
+    puntoSeleccionado = { lat: centro.lat, lng: centro.lng };
+    actualizarCoordsUI();
+    cerrarModalMapa();
   }
 
   document.getElementById('btnElegirUbi').onclick = abrirModalMapa;
   document.getElementById('btnCerrarModal').onclick = cerrarModalMapa;
   document.getElementById('btnCancelarUbi').onclick = cerrarModalMapa;
-
-  document.getElementById('btnConfirmarUbi').onclick = () => {
-    const centro = mapSelector.getCenter();
-    puntoSeleccionado = { lat: centro.lat, lng: centro.lng };
-    actualizarCoordsUI();
-    cerrarModalMapa();
-  };
 
   // ═════════════════════════════════════════
   // CLIC EN MAPA PRINCIPAL
@@ -1257,7 +1331,6 @@
     });
   }
 
-  // Comprime a maxW y calidad 0.7. Con esto garantizamos que no pasen de 1 MB.
   function comprimirImagen(base64, maxW) {
     return new Promise((res) => {
       const img = new Image();
@@ -1300,14 +1373,29 @@
   }
 
   // ═════════════════════════════════════════
-  // GUARDAR (a Supabase)
+  // GUARDAR (a Supabase CON AVISO DE DUPLICADOS)
   // ═════════════════════════════════════════
   document.getElementById('btnAdd').onclick = async () => {
     if (!puntoSeleccionado) return alert('Primero selecciona una ubicación');
 
+    const tipoNuevo = document.getElementById('tipo').value;
+
+    // Comprobar si hay una incidencia ACTIVA del MISMO TIPO a menos de 50 metros
+    const duplicada = incidencias.find(inc => 
+      inc.estado === 'activa' &&
+      inc.tipo === tipoNuevo &&
+      distanciaMetros(puntoSeleccionado.lat, puntoSeleccionado.lng, inc.lat, inc.lng) < 50
+    );
+
+    if (duplicada) {
+      const distancia = Math.round(distanciaMetros(puntoSeleccionado.lat, puntoSeleccionado.lng, duplicada.lat, duplicada.lng));
+      const continuar = confirm(`⚠️ AVISO:\n\nYa existe una incidencia activa de tipo "${TIPOS[tipoNuevo].label}" a ${distancia} metros de esta ubicación.\n\n¿Deseas guardar esta de todas formas?`);
+      if (!continuar) return; // El usuario ha cancelado
+    }
+
     const inc = {
       id: Date.now().toString(),
-      tipo: document.getElementById('tipo').value,
+      tipo: tipoNuevo,
       desc: document.getElementById('desc').value.trim(),
       gravedad: parseInt(document.getElementById('gravedad').value),
       lat: puntoSeleccionado.lat,
@@ -1444,7 +1532,7 @@
   });
 
   // ═════════════════════════════════════════
-  // NUEVA FUNCIÓN: DESCARGAR FOTOS EN ZIP
+  // DESCARGAR FOTOS EN ZIP
   // ═════════════════════════════════════════
   document.getElementById('btnExportarFotos').onclick = async () => {
     const datos = incidenciasParaExportar().filter(inc => inc.imagenes && inc.imagenes.length > 0);
@@ -1463,7 +1551,6 @@
       let numFotos = 0;
 
       for (const inc of datos) {
-        // Formatear fecha como YYYYMMDD
         const fechaObj = new Date(inc.fecha);
         const yyyy = fechaObj.getFullYear();
         const mm = String(fechaObj.getMonth() + 1).padStart(2, '0');
@@ -1475,10 +1562,8 @@
 
         for (let i = 0; i < inc.imagenes.length; i++) {
           const base64 = inc.imagenes[i];
-          const base64Data = base64.split(',')[1]; // Quitar cabecera data:image/jpeg;base64,
+          const base64Data = base64.split(',')[1];
           const sufijo = inc.imagenes.length > 1 ? `-${i+1}` : '';
-          
-          // Nombre final: 20261018 N-111 264.050.jpg (o -1, -2 si hay varias)
           const nombreArchivo = `${fechaStr} ${carretera} ${pk}${sufijo}.jpg`;
           
           zip.file(nombreArchivo, base64Data, { base64: true });
