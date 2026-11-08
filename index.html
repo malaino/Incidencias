@@ -285,6 +285,9 @@ tbody tr:last-child td { border-bottom: none; }
       <div class="legend-item"><span class="legend-dot" style="background:#d97706"></span> En curso</div>
       <div class="legend-item"><span class="legend-dot" style="background:#dc2626"></span> No iniciado</div>
       <div class="legend-item"><span class="legend-dot" style="background:#64748b"></span> Otro</div>
+      <div class="legend-item" style="margin-left:12px">
+        <span style="font-size:12px;color:var(--text-muted)">● Tamaño = prioridad (urgente &gt; importante &gt; media &gt; baja)</span>
+      </div>
       <div class="legend-info" id="mapInfo">Esperando CSV de hitos…</div>
     </div>
   </div>
@@ -579,6 +582,16 @@ function colorPorEstado(estado) {
   return '#64748b';
 }
 
+// NUEVO: radio del punto según prioridad
+function radioPorPrioridad(prioridad) {
+  const p = (prioridad || '').toLowerCase();
+  if (p.includes('urgente'))    return 14;
+  if (p.includes('importante')) return 11;
+  if (p.includes('media'))      return 8;
+  if (p.includes('baja'))       return 5;
+  return 7; // sin prioridad conocida
+}
+
 // ============================================================
 //  EXTRACCIÓN DE UBICACIÓN
 // ============================================================
@@ -749,8 +762,9 @@ function pintarMarcadores(tareas) {
     if (!c) { sinCSV++; return; }
     if (!c.exacto) interp++;
     const color = colorPorEstado(t.Estado);
+    const radio = radioPorPrioridad(t.Prioridad);
     const marker = L.circleMarker([c.lat, c.lng], {
-      radius: 8, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
+      radius: radio, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
     });
     const precision = c.exacto
       ? '<span style="color:#059669">✓ PK exacto</span>'
@@ -768,6 +782,7 @@ function pintarMarcadores(tareas) {
           <div><b>Sentido:</b> ${ub.sentido || c.sentido || '—'}</div>
           <div><b>Estado:</b> <span style="color:${color};font-weight:600">${t.Estado}</span></div>
           <div><b>Prioridad:</b> ${t.Prioridad}</div>
+          <div><b>Tamaño del punto:</b> ${radio} px</div>
           <div><b>Depósito:</b> ${t.Deposito}</div>
         </div>
         <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:11.5px">${precision}</div>
