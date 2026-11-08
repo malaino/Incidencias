@@ -11,259 +11,121 @@
 
 <style>
 :root {
-  --bg: #f1f5f9;
-  --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --text-soft: #94a3b8;
-  --brand: #0f172a;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --success: #059669;
-  --success-bg: #d1fae5;
-  --warning: #d97706;
-  --warning-bg: #fef3c7;
-  --danger: #dc2626;
-  --danger-bg: #fee2e2;
-  --radius: 10px;
-  --radius-sm: 6px;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --bg: #f1f5f9; --surface: #ffffff; --surface-2: #f8fafc;
+  --border: #e2e8f0; --border-strong: #cbd5e1;
+  --text: #0f172a; --text-muted: #64748b; --text-soft: #94a3b8;
+  --brand: #0f172a; --accent: #2563eb; --accent-hover: #1d4ed8;
+  --success: #059669; --success-bg: #d1fae5;
+  --warning: #d97706; --warning-bg: #fef3c7;
+  --danger: #dc2626; --danger-bg: #fee2e2;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,.06);
+  --shadow-md: 0 4px 12px rgba(15,23,42,.08);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.5;
-  padding: 24px;
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  font-size: 14px; line-height: 1.5; padding: 24px; -webkit-font-smoothing: antialiased;
 }
-
 .container { max-width: 1440px; margin: 0 auto; }
 
-/* ---------- Header ---------- */
+/* Header */
 .app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 24px;
-  background: var(--brand);
-  color: #fff;
-  border-radius: var(--radius);
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-md);
-  flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 20px 24px; background: var(--brand); color: #fff;
+  border-radius: var(--radius); margin-bottom: 20px; box-shadow: var(--shadow-md); flex-wrap: wrap;
 }
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand-logo {
-  width: 40px; height: 40px;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
 }
 .brand-logo svg { width: 22px; height: 22px; color: #fff; }
-.brand-text h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.brand-text h1 { font-size: 17px; font-weight: 600; }
 .brand-text p { font-size: 12.5px; color: #cbd5e1; margin-top: 2px; }
-.header-meta {
-  display: flex; gap: 24px; font-size: 12px; color: #cbd5e1;
-  flex-wrap: wrap; align-items: center;
-}
+.header-meta { display: flex; gap: 24px; font-size: 12px; color: #cbd5e1; flex-wrap: wrap; align-items: center; }
 .header-meta b { color: #fff; font-weight: 600; }
 .header-meta .meta-item { display: flex; flex-direction: column; gap: 2px; }
-.header-meta .meta-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; }
+.header-meta .meta-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; color: #94a3b8; }
 
-/* ---------- Upload ---------- */
-.upload-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
+/* Upload */
+.upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
 @media (max-width: 900px) { .upload-grid { grid-template-columns: 1fr; } }
-
 .dropzone {
-  position: relative;
-  background: var(--surface);
-  border: 1.5px dashed var(--border-strong);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
-  transition: all .2s ease;
-  box-shadow: var(--shadow-sm);
+  position: relative; background: var(--surface); border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius); padding: 20px; display: flex; align-items: center; gap: 16px;
+  cursor: pointer; transition: all .2s; box-shadow: var(--shadow-sm);
 }
 .dropzone:hover { border-color: var(--accent); background: #f8fbff; }
 .dropzone.dragover { border-color: var(--accent); background: #eff6ff; transform: translateY(-1px); }
 .dropzone.loaded { border-style: solid; border-color: var(--success); background: #f0fdf4; }
-.dropzone-icon {
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  background: var(--surface-2);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
+.dropzone-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .dropzone.loaded .dropzone-icon { background: var(--success-bg); }
 .dropzone-icon svg { width: 22px; height: 22px; color: var(--accent); }
 .dropzone.loaded .dropzone-icon svg { color: var(--success); }
 .dropzone-text { flex: 1; min-width: 0; }
 .dropzone-title { font-size: 14px; font-weight: 600; color: var(--text); }
 .dropzone-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
-.dropzone-badge {
-  font-size: 11px; font-weight: 600; padding: 3px 8px;
-  border-radius: 999px; background: var(--surface-2); color: var(--text-muted);
-  border: 1px solid var(--border);
-}
+.dropzone-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
 .dropzone.loaded .dropzone-badge { background: var(--success-bg); color: var(--success); border-color: transparent; }
-
 input[type="file"] { display: none; }
 
-/* ---------- Toolbar ---------- */
+/* Toolbar */
 .toolbar {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 16px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 16px; align-items: flex-end;
+  flex-wrap: wrap; box-shadow: var(--shadow-sm);
 }
 .field { display: flex; flex-direction: column; gap: 6px; min-width: 180px; }
-.field label {
-  font-size: 11px; font-weight: 600; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
+.field label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
 .field select, .field input {
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 13.5px;
-  background: var(--surface);
-  color: var(--text);
-  outline: none;
-  transition: border-color .15s, box-shadow .15s;
-  font-family: inherit;
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 13.5px; background: var(--surface); color: var(--text); outline: none; font-family: inherit;
 }
-.field select:focus, .field input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-.toolbar-stats {
-  margin-left: auto;
-  display: flex; gap: 20px; align-items: center;
-  font-size: 12.5px; color: var(--text-muted);
-}
+.field select:focus, .field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+.toolbar-stats { margin-left: auto; display: flex; gap: 20px; align-items: center; font-size: 12.5px; color: var(--text-muted); }
 .toolbar-stats b { color: var(--text); font-weight: 600; }
 .btn-clear {
-  padding: 8px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 12.5px;
-  font-family: inherit;
-  transition: all .15s;
-  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--text-muted); cursor: pointer;
+  font-size: 12.5px; font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
 }
 .btn-clear:hover { background: var(--danger-bg); border-color: #fecaca; color: var(--danger); }
 
-/* ---------- Map ---------- */
-.map-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-}
+/* Map */
+.map-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
 #map { height: 520px; width: 100%; }
-.map-legend {
-  display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
-  padding: 12px 18px;
-  border-top: 1px solid var(--border);
-  background: var(--surface-2);
-  font-size: 12.5px;
-  color: var(--text-muted);
-}
+.map-legend { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; padding: 12px 18px; border-top: 1px solid var(--border); background: var(--surface-2); font-size: 12.5px; color: var(--text-muted); }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--border); }
 .legend-info { margin-left: auto; font-size: 12px; color: var(--text-soft); }
 
-/* ---------- Table ---------- */
-.table-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
+/* Table */
+.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
 .table-scroll { overflow-x: auto; max-height: 70vh; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 thead th {
-  position: sticky; top: 0; z-index: 2;
-  background: var(--surface-2);
-  text-align: left;
-  padding: 12px 16px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
+  position: sticky; top: 0; z-index: 2; background: var(--surface-2); text-align: left;
+  padding: 12px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .6px; color: var(--text-muted); border-bottom: 1px solid var(--border); white-space: nowrap;
 }
-tbody td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
-}
+tbody td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 tbody tr { transition: background .12s; }
 tbody tr:hover { background: #f8fbff; }
 tbody tr:last-child td { border-bottom: none; }
-
-.task-name { font-weight: 500; color: var(--text); }
+.task-name { font-weight: 500; }
 .task-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-.pk-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px;
-  padding: 3px 8px;
-  border-radius: 6px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
+.pk-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
 .pk-pill b { color: var(--text); }
 .pk-pill.exact { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
 .pk-pill.exact b { color: #047857; }
 .pk-pill.interp { background: #fffbeb; border-color: #fde68a; color: #b45309; }
 .pk-pill.miss { background: var(--danger-bg); border-color: #fecaca; color: var(--danger); }
 
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 600;
-  white-space: nowrap;
-}
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
 .badge.done { background: var(--success-bg); color: #065f46; }
 .badge.todo { background: var(--danger-bg); color: #991b1b; }
 .badge.doing { background: var(--warning-bg); color: #92400e; }
@@ -276,113 +138,53 @@ tbody tr:last-child td { border-bottom: none; }
 .priority.baja { color: var(--text-muted); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.tag {
-  background: #eef2ff; color: #4338ca;
-  padding: 2px 8px; border-radius: 4px;
-  font-size: 11px; font-weight: 500;
-}
+.tag { background: #eef2ff; color: #4338ca; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
 
 .planner-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 12px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background .15s, transform .1s;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+  background: var(--accent); color: #fff; border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap;
 }
 .planner-btn:hover { background: var(--accent-hover); }
-.planner-btn:active { transform: scale(0.98); }
 .planner-btn svg { width: 13px; height: 13px; }
-.planner-btn.disabled {
-  background: var(--surface-2);
-  color: var(--text-soft);
-  cursor: not-allowed;
-  pointer-events: none;
-}
+.planner-btn.disabled { background: var(--surface-2); color: var(--text-soft); pointer-events: none; }
 
-/* ---------- Empty / status ---------- */
-.empty-state {
-  padding: 60px 20px;
-  text-align: center;
-  color: var(--text-muted);
-}
+.empty-state { padding: 60px 20px; text-align: center; color: var(--text-muted); }
 .empty-state svg { width: 40px; height: 40px; color: var(--text-soft); margin-bottom: 12px; }
 
-/* ---------- Toasts ---------- */
-.toast-wrap {
-  position: fixed; top: 20px; right: 20px; z-index: 9999;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.toast {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  box-shadow: var(--shadow-md);
-  font-size: 13px;
-  min-width: 260px; max-width: 360px;
-  animation: slideIn .25s ease;
-}
+/* Toasts */
+.toast-wrap { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+.toast { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; box-shadow: var(--shadow-md); font-size: 13px; min-width: 260px; max-width: 360px; animation: slideIn .25s ease; }
 .toast.success { border-left-color: var(--success); }
-.toast.error   { border-left-color: var(--danger); }
+.toast.error { border-left-color: var(--danger); }
 .toast.warning { border-left-color: var(--warning); }
 .toast-title { font-weight: 600; margin-bottom: 2px; }
 .toast-msg { font-size: 12.5px; color: var(--text-muted); }
 @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
 
-/* ---------- Login overlay ---------- */
+/* Login overlay */
 #loginOverlay {
   position: fixed; inset: 0; z-index: 99999;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
+  display: none; align-items: center; justify-content: center; padding: 20px;
 }
-.login-card {
-  background: #fff; border-radius: 14px; padding: 32px 28px;
-  width: 100%; max-width: 340px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.4);
-  text-align: center;
-}
-.login-icon {
-  width: 48px; height: 48px; margin: 0 auto 16px;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  border-radius: 12px; display: flex; align-items: center; justify-content: center;
-}
+.login-card { background: #fff; border-radius: 14px; padding: 32px 28px; width: 100%; max-width: 340px; box-shadow: 0 20px 40px rgba(0,0,0,.4); text-align: center; }
+.login-icon { width: 48px; height: 48px; margin: 0 auto 16px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .login-icon svg { width: 24px; height: 24px; color: #fff; }
-.login-card h2 { font-size: 16px; color: #0f172a; margin-bottom: 4px; }
-.login-card p.sub { font-size: 12.5px; color: #64748b; margin-bottom: 20px; }
-.login-card input {
-  width: 100%; padding: 10px 14px; font-size: 16px; letter-spacing: 4px;
-  text-align: center; border: 1px solid #cbd5e1; border-radius: 8px;
-  outline: none; font-family: inherit;
-  transition: border-color .15s, box-shadow .15s;
-}
-.login-card input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-.login-error {
-  color: #dc2626; font-size: 12px; margin-top: 8px; min-height: 16px;
-}
-.login-btn {
-  width: 100%; padding: 10px; margin-top: 8px;
-  background: #2563eb; color: #fff; border: none; border-radius: 8px;
-  font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
-  transition: background .15s;
-}
-.login-btn:hover { background: #1d4ed8; }
-.login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.login-card h2 { font-size: 16px; color: var(--text); margin-bottom: 4px; }
+.login-card p.sub { font-size: 12.5px; color: var(--text-muted); margin-bottom: 20px; }
+.login-card input { width: 100%; padding: 10px 14px; font-size: 16px; letter-spacing: 4px; text-align: center; border: 1px solid var(--border-strong); border-radius: 8px; outline: none; font-family: inherit; }
+.login-card input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+.login-error { color: var(--danger); font-size: 12px; margin-top: 8px; min-height: 16px; }
+.login-btn { width: 100%; padding: 10px; margin-top: 8px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.login-btn:hover { background: var(--accent-hover); }
+.login-btn:disabled { background: var(--text-soft); cursor: not-allowed; }
 </style>
 </head>
 <body>
 
-<!-- ================= LOGIN OVERLAY ================= -->
-<div id="loginOverlay" style="display:none">
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay">
   <div class="login-card">
     <div class="login-icon">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -402,13 +204,11 @@ tbody tr:last-child td { border-bottom: none; }
 
 <div class="container">
 
-  <!-- ================= HEADER ================= -->
   <header class="app-header">
     <div class="brand">
       <div class="brand-logo">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 11l3 3L22 4"></path>
-          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          <path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
         </svg>
       </div>
       <div class="brand-text">
@@ -417,33 +217,19 @@ tbody tr:last-child td { border-bottom: none; }
       </div>
     </div>
     <div class="header-meta">
-      <div class="meta-item">
-        <span class="meta-label">Hitos CSV</span>
-        <b id="metaHitos">—</b>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Tareas</span>
-        <b id="metaTareas">—</b>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Última actualización</span>
-        <b id="metaActualizado">—</b>
-      </div>
-      <button id="btnLogout" class="btn-clear" style="background:transparent;color:#cbd5e1;border-color:#334155" title="Cerrar sesión">
-        🔒 Salir
-      </button>
+      <div class="meta-item"><span class="meta-label">Hitos CSV</span><b id="metaHitos">—</b></div>
+      <div class="meta-item"><span class="meta-label">Tareas</span><b id="metaTareas">—</b></div>
+      <div class="meta-item"><span class="meta-label">Última actualización</span><b id="metaActualizado">—</b></div>
+      <button id="btnLogout" class="btn-clear" style="background:transparent;color:#cbd5e1;border-color:#334155">🔒 Salir</button>
     </div>
   </header>
 
-  <!-- ================= UPLOAD ================= -->
   <div class="upload-grid">
     <div class="dropzone" id="dzExcel" tabindex="0">
       <div class="dropzone-icon">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="8" y1="13" x2="16" y2="13"></line>
-          <line x1="8" y1="17" x2="16" y2="17"></line>
         </svg>
       </div>
       <div class="dropzone-text">
@@ -457,8 +243,7 @@ tbody tr:last-child td { border-bottom: none; }
     <div class="dropzone" id="dzCsv" tabindex="0">
       <div class="dropzone-icon">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-          <circle cx="12" cy="10" r="3"></circle>
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
         </svg>
       </div>
       <div class="dropzone-text">
@@ -470,7 +255,6 @@ tbody tr:last-child td { border-bottom: none; }
     </div>
   </div>
 
-  <!-- ================= FILTERS ================= -->
   <div class="toolbar">
     <div class="field">
       <label for="filterDeposito">Depósito</label>
@@ -488,13 +272,12 @@ tbody tr:last-child td { border-bottom: none; }
       <span><b id="countInfo">0</b> tareas visibles</span>
       <span><b id="countMap">0</b> en mapa</span>
     </div>
-    <button id="btnLimpiar" class="btn-clear" title="Borrar los datos guardados en el navegador">
+    <button id="btnLimpiar" class="btn-clear" title="Borrar los datos guardados">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg>
       Limpiar datos
     </button>
   </div>
 
-  <!-- ================= MAP ================= -->
   <div class="map-card">
     <div id="map"></div>
     <div class="map-legend">
@@ -506,20 +289,13 @@ tbody tr:last-child td { border-bottom: none; }
     </div>
   </div>
 
-  <!-- ================= TABLE ================= -->
   <div class="table-card">
     <div class="table-scroll">
       <table>
         <thead>
           <tr>
-            <th>Tarea</th>
-            <th>Carretera / PK</th>
-            <th>Depósito</th>
-            <th>Estado</th>
-            <th>Prioridad</th>
-            <th>Asignado</th>
-            <th>Fin</th>
-            <th>Etiquetas</th>
+            <th>Tarea</th><th>Carretera / PK</th><th>Depósito</th><th>Estado</th>
+            <th>Prioridad</th><th>Asignado</th><th>Fin</th><th>Etiquetas</th>
             <th style="text-align:center">Planner</th>
           </tr>
         </thead>
@@ -532,64 +308,61 @@ tbody tr:last-child td { border-bottom: none; }
       </table>
     </div>
   </div>
-
 </div>
 
 <script>
 // ============================================================
 //  CONFIGURACIÓN
 // ============================================================
-const CSV_URL = "PK_HECTOMETROS_5m_LO2.csv";
-
-// Base URL de Planner y tenant (cámbialo por el tuyo).
-const PLANNER_BASE_URL = "https://tasks.office.com";
-const PLANNER_TENANT   = "TU_TENANT_AQUI";
-
-// ============================================================
-//  CONTRASEÑA (hash SHA-256)
-//  Contraseña actual: RIOja_22
-//  ⚠️ Genera el hash tú mismo en la consola del navegador:
-//     crypto.subtle.digest('SHA-256', new TextEncoder().encode('RIOja_22'))
-//       .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')))
-//  Y pega el resultado en PASS_HASH.
-//  El valor de abajo es un PLACEHOLDER: sustitúyelo o NO podrás entrar.
-// ============================================================
+// Hash SHA-256 de la contraseña. Genera el tuyo en la consola:
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('TU_CONTRASEÑA'))
+//     .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')))
+// ⚠️ Sustituye el valor de abajo por el hash real o NO podrás entrar.
 const PASS_HASH = "REEMPLAZA_CON_TU_HASH_SHA256";
 const SESSION_KEY = "planner_auth_ok_v1";
 
-// Claves de localStorage
-const LS_TAREAS       = "planner_tareas_v1";
-const LS_HITOS        = "planner_hitos_v1";
-const LS_ACTUALIZADO  = "planner_ultima_actualizacion_v1";
+// Si tienes el CSV en la misma carpeta, deja el nombre. Si lo sirves desde
+// otro sitio, pon la URL completa. Si NO quieres auto-carga, pon "".
+const CSV_URL = "PK_HECTOMETROS_5m_LO2.csv";
+
+// Planner (opcional)
+const PLANNER_BASE_URL = "https://tasks.office.com";
+const PLANNER_TENANT   = "TU_TENANT_AQUI";
+
+// Claves de localStorage / IndexedDB
+const LS_TAREAS      = "planner_tareas_v1";
+const LS_HITOS       = "planner_hitos_v1";
+const LS_ACTUALIZADO = "planner_ultima_actualizacion_v1";
+const IDB_NAME       = "planner_db";
+const IDB_STORE      = "hitos";
+const IDB_KEY        = "csv_hitos";
 
 // ============================================================
 //  ESTADO
 // ============================================================
 let currentData = { tareas: [], depositos: {}, usuarios: {} };
 let filteredTareas = [];
-let hitosIndex = null;
 let hitosPorCarretera = {};
 let tareasCargadas = false;
 let csvCargado = false;
 
-// DOM
 const $ = (id) => document.getElementById(id);
-const tableBody   = $('tableBody');
+const tableBody = $('tableBody');
 const filterDeposito = $('filterDeposito');
-const filterEstado   = $('filterEstado');
-const filterTexto    = $('filterTexto');
-const countInfo  = $('countInfo');
-const countMap   = $('countMap');
-const mapInfo    = $('mapInfo');
-const metaHitos  = $('metaHitos');
+const filterEstado = $('filterEstado');
+const filterTexto = $('filterTexto');
+const countInfo = $('countInfo');
+const countMap = $('countMap');
+const mapInfo = $('mapInfo');
+const metaHitos = $('metaHitos');
 const metaTareas = $('metaTareas');
 const metaActualizado = $('metaActualizado');
-const dzExcel    = $('dzExcel');
-const dzCsv      = $('dzCsv');
+const dzExcel = $('dzExcel');
+const dzCsv = $('dzCsv');
 const dzExcelBadge = $('dzExcelBadge');
-const dzExcelSub   = $('dzExcelSub');
-const dzCsvBadge   = $('dzCsvBadge');
-const dzCsvSub     = $('dzCsvSub');
+const dzExcelSub = $('dzExcelSub');
+const dzCsvBadge = $('dzCsvBadge');
+const dzCsvSub = $('dzCsvSub');
 
 // ============================================================
 //  TOASTS
@@ -604,7 +377,7 @@ function toast(type, title, msg) {
 }
 
 // ============================================================
-//  LOGIN POR CONTRASEÑA
+//  LOGIN (barrera en cliente — NO es seguridad real)
 // ============================================================
 async function sha256Hex(texto) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
@@ -619,7 +392,7 @@ function mostrarLogin() {
   ov.style.display = 'flex';
 
   if (PASS_HASH === "REEMPLAZA_CON_TU_HASH_SHA256") {
-    err.textContent = "⚠️ Falta configurar PASS_HASH en el código. Genera el hash SHA-256 y pégalo.";
+    err.textContent = "⚠️ Falta configurar PASS_HASH. Genera el hash SHA-256 y pégalo en el código.";
     btn.disabled = true;
   }
 
@@ -652,73 +425,103 @@ function cerrarSesion() {
 }
 
 // ============================================================
-//  ARRANQUE DE LA APP (tras login o si ya había sesión)
-// ============================================================
-function arrancarApp() {
-  inicializarMapa();
-
-  // 1) Recuperar tareas
-  const tareasGuardadas = localStorage.getItem(LS_TAREAS);
-  if (tareasGuardadas) {
-    try {
-      const tareas = JSON.parse(tareasGuardadas);
-      currentData.tareas = tareas;
-      tareasCargadas = true;
-      dzExcel.classList.add('loaded');
-      dzExcelBadge.textContent = `${tareas.length} tareas`;
-      dzExcelSub.textContent = 'Datos recuperados de sesión anterior';
-      metaTareas.textContent = tareas.length.toLocaleString('es-ES');
-      populateFilters();
-      applyFilters();
-    } catch (e) { console.warn('Error recuperando tareas', e); }
-  }
-
-  // 2) Recuperar hitos
-  const hitosGuardados = localStorage.getItem(LS_HITOS);
-  if (hitosGuardados) {
-    try {
-      const rows = JSON.parse(hitosGuardados);
-      indexarHitos(rows);
-      csvCargado = true;
-      dzCsv.classList.add('loaded');
-      dzCsvBadge.textContent = `${rows.length} hitos`;
-      dzCsvSub.textContent = 'Datos recuperados';
-      metaHitos.textContent = rows.length.toLocaleString('es-ES');
-      mapInfo.textContent = `📊 ${rows.length} hitos · ${Object.keys(hitosPorCarretera).join(', ')}`;
-      if (tareasCargadas) renderTable(filteredTareas);
-    } catch (e) { console.warn('Error recuperando hitos', e); }
-  } else if (CSV_URL) {
-    cargarCSVDesdeURL(CSV_URL);
-  }
-
-  // 3) Fecha de última actualización
-  const iso = localStorage.getItem(LS_ACTUALIZADO);
-  metaActualizado.textContent = formatearFecha(iso);
-}
-
-// ============================================================
-//  PERSISTENCIA
+//  PERSISTENCIA: localStorage (tareas) + IndexedDB (hitos)
 // ============================================================
 function guardarTareas(tareas) {
   try {
     localStorage.setItem(LS_TAREAS, JSON.stringify(tareas));
     localStorage.setItem(LS_ACTUALIZADO, new Date().toISOString());
     metaActualizado.textContent = formatearFecha(new Date().toISOString());
-  } catch (e) { console.warn("No se pudieron guardar las tareas:", e); }
+  } catch (e) {
+    console.warn("No se pudieron guardar las tareas en localStorage:", e);
+    toast('warning', 'Aviso', 'Las tareas no se pudieron guardar (cuota localStorage).');
+  }
 }
-function guardarHitos(rows) {
-  try { localStorage.setItem(LS_HITOS, JSON.stringify(rows)); }
-  catch (e) { console.warn("No se pudieron guardar los hitos:", e); }
+
+function leerTareas() {
+  try {
+    const raw = localStorage.getItem(LS_TAREAS);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
 }
+
 function formatearFecha(iso) {
   if (!iso) return '—';
   const d = new Date(iso);
   if (isNaN(d)) return '—';
-  return d.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return d.toLocaleString('es-ES', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+// --- IndexedDB para hitos (pueden ser varios MB) ---
+function abrirIDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function guardarHitos(rows) {
+  // 1) Intentar IndexedDB (sin límite práctico)
+  try {
+    const db = await abrirIDB();
+    await new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(rows, IDB_KEY);
+      tx.oncomplete = res;
+      tx.onerror = () => rej(tx.error);
+    });
+    return;
+  } catch (e) {
+    console.warn("IndexedDB falló, probando localStorage:", e);
+  }
+  // 2) Fallback a localStorage (puede fallar por cuota)
+  try {
+    localStorage.setItem(LS_HITOS, JSON.stringify(rows));
+  } catch (e) {
+    console.warn("localStorage también falló:", e);
+    toast('warning', 'Aviso', 'Los hitos no se pudieron guardar (cuota superada).');
+  }
+}
+
+async function leerHitos() {
+  // 1) Intentar IndexedDB
+  try {
+    const db = await abrirIDB();
+    const data = await new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(IDB_KEY);
+      req.onsuccess = () => res(req.result);
+      req.onerror = () => rej(req.error);
+    });
+    if (data) return data;
+  } catch (e) { /* seguimos */ }
+  // 2) Fallback a localStorage
+  try {
+    const raw = localStorage.getItem(LS_HITOS);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+async function borrarHitosGuardados() {
+  try {
+    const db = await abrirIDB();
+    await new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).delete(IDB_KEY);
+      tx.oncomplete = res;
+      tx.onerror = () => rej(tx.error);
+    });
+  } catch {}
+  try { localStorage.removeItem(LS_HITOS); } catch {}
 }
 
 // ============================================================
-//  UTM → WGS84 (zona 30N)
+//  UTM → WGS84
 // ============================================================
 function utmToLatLng(x, y, zone = 30, northern = true) {
   const a = 6378137.0, eccSquared = 0.00669438, k0 = 0.9996;
@@ -740,15 +543,12 @@ function utmToLatLng(x, y, zone = 30, northern = true) {
   const R1 = a * (1 - eccSquared) / Math.pow(1 - eccSquared * sinPhi * sinPhi, 1.5);
   const D = xUTM / (N1 * k0);
   const latRad = phi1Rad - (N1 * Math.tan(phi1Rad) / R1) * (
-    D * D / 2
-    - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * eccPrimeSquared) * Math.pow(D, 4) / 24
-    + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * eccPrimeSquared - 3 * C1 * C1) * Math.pow(D, 6) / 720
+    D*D/2 - (5+3*T1+10*C1-4*C1*C1-9*eccPrimeSquared)*Math.pow(D,4)/24
+    + (61+90*T1+298*C1+45*T1*T1-252*eccPrimeSquared-3*C1*C1)*Math.pow(D,6)/720
   );
-  const lonRad = (D
-    - (1 + 2 * T1 + C1) * Math.pow(D, 3) / 6
-    + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * eccPrimeSquared + 24 * T1 * T1) * Math.pow(D, 5) / 120
-  ) / cosPhi;
-  return { lat: latRad * 180 / Math.PI, lng: longOrigin + lonRad * 180 / Math.PI };
+  const lonRad = (D - (1+2*T1+C1)*Math.pow(D,3)/6
+    + (5-2*C1+28*T1-3*C1*C1+8*eccPrimeSquared+24*T1*T1)*Math.pow(D,5)/120) / cosPhi;
+  return { lat: latRad*180/Math.PI, lng: longOrigin + lonRad*180/Math.PI };
 }
 
 // ============================================================
@@ -758,41 +558,24 @@ let map = null, markersLayer = null;
 
 function inicializarMapa() {
   if (map) return;
-
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 19
+    attribution: '© OpenStreetMap contributors', maxZoom: 19
   });
-
   const pnoa = L.tileLayer.wms('https://www.ign.es/wms-inspire/pnoa-ma', {
-    layers: 'OI.OrthoimageCoverage',
-    format: 'image/jpeg',
-    transparent: false,
-    version: '1.3.0',
-    attribution: 'PNOA © <a href="https://www.ign.es">IGN</a>',
-    maxZoom: 20
+    layers: 'OI.OrthoimageCoverage', format: 'image/jpeg', transparent: false,
+    version: '1.3.0', attribution: 'PNOA © <a href="https://www.ign.es">IGN</a>', maxZoom: 20
   });
-
-  map = L.map('map', {
-    center: [42.42, -2.35],
-    zoom: 10,
-    layers: [osm]
-  });
-
-  L.control.layers(
-    { "🗺️ Calles": osm, "🛰️ PNOA (ortofoto)": pnoa },
-    null,
-    { position: 'topright', collapsed: false }
-  ).addTo(map);
-
+  map = L.map('map', { center: [42.42, -2.35], zoom: 10, layers: [osm] });
+  L.control.layers({ "🗺️ Calles": osm, "🛰️ PNOA (ortofoto)": pnoa }, null,
+    { position: 'topright', collapsed: false }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
 }
 
 function colorPorEstado(estado) {
   const e = (estado || '').toLowerCase();
   if (e.includes('completado')) return '#059669';
-  if (e.includes('en curso'))   return '#d97706';
-  if (e.includes('no iniciado'))return '#dc2626';
+  if (e.includes('en curso')) return '#d97706';
+  if (e.includes('no iniciado')) return '#dc2626';
   return '#64748b';
 }
 
@@ -803,31 +586,27 @@ function extraerUbicacion(texto) {
   if (!texto) return null;
   const mC = texto.match(/\bN[-\s]?(\d{2,3})[a-z]?\b/i);
   const carretera = mC ? ("N-" + mC[1]) : null;
-
   let pk = null;
   let m = texto.match(/\b(\d{2,3})\s*\+\s*(\d{1,3})(?!\d)/);
-  if (m) pk = parseInt(m[1],10) + parseInt(m[2].padEnd(3,'0').slice(0,3),10) / 1000;
+  if (m) pk = parseInt(m[1],10) + parseInt(m[2].padEnd(3,'0').slice(0,3),10)/1000;
   if (pk === null) {
     m = texto.match(/\b(\d{2,3})\s*[.,]\s*(\d{1,3})(?!\d)/);
-    if (m) pk = parseInt(m[1],10) + parseInt(m[2].padEnd(3,'0').slice(0,3),10) / 1000;
+    if (m) pk = parseInt(m[1],10) + parseInt(m[2].padEnd(3,'0').slice(0,3),10)/1000;
   }
   if (pk === null) {
     m = texto.match(/\b(?:pk|p\.?k\.?|km)\s*(\d{2,3})\b/i);
     if (m) pk = parseInt(m[1],10);
   }
   if (pk === null) return { carretera, pk: null, margen: null, sentido: null };
-
   let margen = null;
   if (/MIMD|MDMI|ambos\s*m[áa]rgenes/i.test(texto)) margen = 'ambos';
   else if (/\bMI\b/i.test(texto)) margen = 'izquierda';
   else if (/\bMD\b/i.test(texto)) margen = 'derecha';
   else if (/\beje\b/i.test(texto)) margen = 'eje';
-
   let sentido = null;
   if (/\bASC(ENDENTE)?\b/i.test(texto)) sentido = 'ASCENDENTE';
   else if (/\bDESC(ENDENTE)?\b/i.test(texto)) sentido = 'DESCENDENTE';
   else if (/\bRAMAL\b/i.test(texto)) sentido = 'RAMAL';
-
   return { carretera, pk, margen, sentido };
 }
 
@@ -841,30 +620,27 @@ function parseCSV(text) {
   const headers = lines[0].split(sep).map(h => h.trim().toLowerCase());
   const idx = {
     carretera: headers.findIndex(h => h.includes('codigoc')),
-    pk:        headers.findIndex(h => h === 'pk'),
-    hect:      headers.findIndex(h => h === 'hect'),
-    pkHect:    headers.findIndex(h => h.includes('pk_hect')),
-    x:         headers.findIndex(h => h.includes('coordenada x') || h === 'x'),
-    y:         headers.findIndex(h => h.includes('coordenada y') || h === 'y'),
-    sentido:   headers.findIndex(h => h.includes('sentido')),
+    pk: headers.findIndex(h => h === 'pk'),
+    hect: headers.findIndex(h => h === 'hect'),
+    pkHect: headers.findIndex(h => h.includes('pk_hect')),
+    x: headers.findIndex(h => h.includes('coordenada x') || h === 'x'),
+    y: headers.findIndex(h => h.includes('coordenada y') || h === 'y'),
+    sentido: headers.findIndex(h => h.includes('sentido')),
   };
   if (idx.carretera === -1 || idx.x === -1 || idx.y === -1 || (idx.pkHect === -1 && (idx.pk === -1 || idx.hect === -1)))
     throw new Error('CSV sin columnas CODIGOC / PK_HECT / Coordenada X / Coordenada Y');
-
   const num = (s) => (s === undefined || s === null) ? NaN : parseFloat(String(s).trim().replace(',', '.'));
-
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(sep).map(c => c.trim());
     if (cols.length <= Math.max(idx.carretera, idx.x, idx.y)) continue;
     const carretera = cols[idx.carretera].toUpperCase().replace(/\s+/g,'');
     if (!carretera) continue;
-
     let pk = NaN;
     if (idx.pkHect !== -1) pk = num(cols[idx.pkHect]);
     if (isNaN(pk) && idx.pk !== -1 && idx.hect !== -1) {
       const km = num(cols[idx.pk]), hm = num(cols[idx.hect]);
-      if (!isNaN(km) && !isNaN(hm)) pk = km + hm / 1000;
+      if (!isNaN(km) && !isNaN(hm)) pk = km + hm/1000;
     }
     if (isNaN(pk)) continue;
     const x = num(cols[idx.x]), y = num(cols[idx.y]);
@@ -877,31 +653,29 @@ function parseCSV(text) {
 }
 
 function indexarHitos(rows) {
-  hitosIndex = new Map();
   hitosPorCarretera = {};
   rows.forEach(r => {
-    hitosIndex.set(`${r.carretera}_${r.sentido}_${r.pk.toFixed(3)}`, { lat: r.lat, lng: r.lng, sentido: r.sentido });
     (hitosPorCarretera[r.carretera] = hitosPorCarretera[r.carretera] || [])
       .push({ pk: r.pk, lat: r.lat, lng: r.lng, sentido: r.sentido });
   });
   Object.keys(hitosPorCarretera).forEach(c => hitosPorCarretera[c].sort((a,b) => a.pk - b.pk));
 }
 
-function cargarCSV(file) {
+async function cargarCSV(file) {
   const reader = new FileReader();
-  reader.onload = (e) => {
+  reader.onload = async (e) => {
     try {
       const rows = parseCSV(e.target.result);
       if (!rows.length) throw new Error('CSV sin filas válidas.');
       indexarHitos(rows);
-      guardarHitos(rows);
+      await guardarHitos(rows);
       csvCargado = true;
       dzCsv.classList.add('loaded');
       dzCsvBadge.textContent = `${rows.length} hitos`;
       dzCsvSub.textContent = `${Object.keys(hitosPorCarretera).length} carreteras cargadas`;
       metaHitos.textContent = rows.length.toLocaleString('es-ES');
       mapInfo.textContent = `📊 ${rows.length} hitos · ${Object.keys(hitosPorCarretera).join(', ')}`;
-      toast('success', 'CSV cargado', `${rows.length} hitos disponibles`);
+      toast('success', 'CSV cargado', `${rows.length} hitos guardados en el navegador`);
       if (tareasCargadas) renderTable(filteredTareas);
     } catch (err) {
       toast('error', 'Error en CSV', err.message);
@@ -917,7 +691,7 @@ async function cargarCSVDesdeURL(url) {
     const rows = parseCSV(await resp.text());
     if (!rows.length) throw new Error('CSV sin filas válidas.');
     indexarHitos(rows);
-    guardarHitos(rows);
+    await guardarHitos(rows);
     csvCargado = true;
     dzCsv.classList.add('loaded');
     dzCsvBadge.textContent = `${rows.length} hitos`;
@@ -940,10 +714,9 @@ function buscarCoordenadas(carretera, pk, sentidoPreferido) {
     const f = lista.filter(h => h.sentido === sentidoPreferido);
     if (f.length) lista = f;
   }
-  const objetivo = Math.round(pk * 1000) / 1000;
+  const objetivo = Math.round(pk*1000)/1000;
   const exacto = lista.find(h => h.pk === objetivo);
   if (exacto) return { lat: exacto.lat, lng: exacto.lng, exacto: true, sentido: exacto.sentido };
-
   const ordenada = [...lista].sort((a,b) => a.pk - b.pk);
   let inf = null, sup = null;
   for (const h of ordenada) {
@@ -955,12 +728,9 @@ function buscarCoordenadas(carretera, pk, sentidoPreferido) {
   if (!sup) return { lat: inf.lat, lng: inf.lng, exacto: false, entre: [inf.pk, inf.pk], sentido: inf.sentido };
   if (inf.pk === sup.pk) return { lat: inf.lat, lng: inf.lng, exacto: false, entre: [inf.pk, sup.pk], sentido: inf.sentido };
   const t = (pk - inf.pk) / (sup.pk - inf.pk);
-  return {
-    lat: inf.lat + t * (sup.lat - inf.lat),
-    lng: inf.lng + t * (sup.lng - inf.lng),
+  return { lat: inf.lat + t*(sup.lat-inf.lat), lng: inf.lng + t*(sup.lng-inf.lng),
     exacto: false, entre: [inf.pk, sup.pk],
-    sentido: inf.sentido === sup.sentido ? inf.sentido : `${inf.sentido}/${sup.sentido}`
-  };
+    sentido: inf.sentido === sup.sentido ? inf.sentido : `${inf.sentido}/${sup.sentido}` };
 }
 
 // ============================================================
@@ -970,17 +740,14 @@ function pintarMarcadores(tareas) {
   if (!map) inicializarMapa();
   markersLayer.clearLayers();
   if (!csvCargado) { mapInfo.textContent = '⚠️ Carga el CSV de hitos para ver los marcadores'; countMap.textContent = '0'; return; }
-
   const coords = [];
   let sinUbic = 0, sinCSV = 0, interp = 0;
-
   tareas.forEach(t => {
     const ub = extraerUbicacion(t.TextoUbicacion || t.Nombre);
     if (!ub || !ub.carretera || ub.pk === null) { sinUbic++; return; }
     const c = buscarCoordenadas(ub.carretera, ub.pk, ub.sentido);
     if (!c) { sinCSV++; return; }
     if (!c.exacto) interp++;
-
     const color = colorPorEstado(t.Estado);
     const marker = L.circleMarker([c.lat, c.lng], {
       radius: 8, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.95
@@ -990,9 +757,8 @@ function pintarMarcadores(tareas) {
       : (c.entre && c.entre[0] !== c.entre[1]
         ? `<span style="color:#d97706">≈ Interpolado ${c.entre[0].toFixed(3)}–${c.entre[1].toFixed(3)}</span>`
         : '<span style="color:#d97706">≈ Hito más cercano</span>');
-
     marker.bindPopup(`
-      <div style="font-family:${getComputedStyle(document.body).fontFamily};min-width:260px">
+      <div style="min-width:260px">
         <div style="font-weight:600;font-size:14px;color:#0f172a;margin-bottom:4px">${t.Nombre}</div>
         ${t.Descripcion ? `<div style="font-size:12px;color:#64748b;margin-bottom:8px">${t.Descripcion}</div>` : ''}
         <div style="font-size:12.5px;line-height:1.6;color:#334155">
@@ -1009,7 +775,6 @@ function pintarMarcadores(tareas) {
     marker.addTo(markersLayer);
     coords.push([c.lat, c.lng]);
   });
-
   if (coords.length) map.fitBounds(coords, { padding: [30, 30] });
   countMap.textContent = coords.length;
   mapInfo.textContent = `📍 ${coords.length} en mapa · ${interp} interpolados · ${sinCSV} sin PK en CSV · ${sinUbic} sin PK en nombre`;
@@ -1020,9 +785,8 @@ function pintarMarcadores(tareas) {
 // ============================================================
 function construirLinkPlanner(t) {
   if (t.Link) return t.Link;
-  if (t.Id && PLANNER_TENANT && PLANNER_TENANT !== 'TU_TENANT_AQUI') {
+  if (t.Id && PLANNER_TENANT && PLANNER_TENANT !== 'TU_TENANT_AQUI')
     return `${PLANNER_BASE_URL}/${PLANNER_TENANT}/Home/Task/${encodeURIComponent(t.Id)}`;
-  }
   return null;
 }
 
@@ -1032,9 +796,7 @@ function handleExcelUpload(event) {
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
-      const data = new Uint8Array(e.target.result);
-      const wb = XLSX.read(data, { type: 'array' });
-
+      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
       const depositosMap = {};
       if (wb.SheetNames.includes('Depósitos')) {
         XLSX.utils.sheet_to_json(wb.Sheets['Depósitos'], { header: 1 }).slice(1)
@@ -1045,61 +807,41 @@ function handleExcelUpload(event) {
         XLSX.utils.sheet_to_json(wb.Sheets['Usuarios'], { header: 1 }).slice(1)
           .forEach(row => { if (row && row.length >= 2 && row[0] && row[1]) usuariosMap[row[0]] = row[1]; });
       }
-
       if (!wb.SheetNames.includes('Datos consolidados'))
         throw new Error("No se encontró la hoja 'Datos consolidados'.");
-
       const json = XLSX.utils.sheet_to_json(wb.Sheets['Datos consolidados']);
-
       const tareas = json.map(row => {
-        const nombre   = row['Nombre de la tarea'] || row['Nombre'] || row['Tarea'] || 'Sin nombre';
-        const desc     = row['Descripción'] || row['Descripcion'] || row['Description'] || row['Notes'] || '';
-        const depId    = row['Depósito'] || row['Deposito'] || '';
-        const estado   = row['Estado'] || 'Sin estado';
-        const prio     = row['Priority'] || row['Prioridad'] || 'Media';
-        const asigId   = row['Asignado a'] || row['Asignado'] || '';
+        const nombre = row['Nombre de la tarea'] || row['Nombre'] || row['Tarea'] || 'Sin nombre';
+        const desc = row['Descripción'] || row['Descripcion'] || row['Description'] || row['Notes'] || '';
+        const depId = row['Depósito'] || row['Deposito'] || '';
+        const estado = row['Estado'] || 'Sin estado';
+        const prio = row['Priority'] || row['Prioridad'] || 'Media';
+        const asigId = row['Asignado a'] || row['Asignado'] || '';
         const fechaFin = row['Fecha de finalización'] || row['FechaFin'] || '';
-        const etiq     = row['Etiquetas'] || row['Tags'] || '';
-        const link     = row['Link'] || row['URL'] || row['Enlace'] || row['Web'] || '';
-        const idTarea  = row['Id. de tarea'] || row['ID'] || row['Id'] || '';
-
+        const etiq = row['Etiquetas'] || row['Tags'] || '';
+        const link = row['Link'] || row['URL'] || row['Enlace'] || row['Web'] || '';
+        const idTarea = row['Id. de tarea'] || row['ID'] || row['Id'] || '';
         const textoUbic = [nombre, desc, etiq].filter(Boolean).join(' | ');
         const depNombre = depositosMap[depId] || depId || 'Sin depósito';
         let asigNombre = asigId;
         if (usuariosMap[asigId]) asigNombre = usuariosMap[asigId];
         else if (asigId && asigId.includes(';'))
           asigNombre = asigId.split(';').map(id => usuariosMap[id.trim()] || id.trim()).join('; ');
-
-        return {
-          Id: idTarea || Math.random().toString(36).slice(2,11),
-          Nombre: nombre,
-          Descripcion: desc,
-          TextoUbicacion: textoUbic,
-          Deposito: depNombre,
-          DepositoId: depId,
-          Estado: estado,
-          Prioridad: prio,
-          Asignado: asigNombre,
-          FechaFin: fechaFin,
-          Etiquetas: etiq,
-          Link: link
-        };
+        return { Id: idTarea || Math.random().toString(36).slice(2,11),
+          Nombre: nombre, Descripcion: desc, TextoUbicacion: textoUbic,
+          Deposito: depNombre, DepositoId: depId, Estado: estado, Prioridad: prio,
+          Asignado: asigNombre, FechaFin: fechaFin, Etiquetas: etiq, Link: link };
       });
-
       currentData = { tareas, depositos: depositosMap, usuarios: usuariosMap };
       tareasCargadas = true;
-
-      // Persistir (sobrescribe la caché anterior)
-      guardarTareas(tareas);
-
+      guardarTareas(tareas);  // ← persiste y sobrescribe la anterior
       dzExcel.classList.add('loaded');
       dzExcelBadge.textContent = `${tareas.length} tareas`;
       dzExcelSub.textContent = file.name;
       metaTareas.textContent = tareas.length.toLocaleString('es-ES');
-
       populateFilters();
       applyFilters();
-      toast('success', 'Excel cargado', `${tareas.length} tareas importadas`);
+      toast('success', 'Excel cargado', `${tareas.length} tareas guardadas en el navegador`);
     } catch (err) {
       console.error(err);
       toast('error', 'Error al procesar Excel', err.message);
@@ -1115,7 +857,6 @@ function populateFilters() {
   const deps = [...new Set(currentData.tareas.map(t => t.Deposito))].filter(Boolean).sort();
   filterDeposito.innerHTML = '<option value="">Todos</option>';
   deps.forEach(d => { const o = document.createElement('option'); o.value = d; o.textContent = d; filterDeposito.appendChild(o); });
-
   const ests = [...new Set(currentData.tareas.map(t => t.Estado))].filter(Boolean).sort();
   filterEstado.innerHTML = '<option value="">Todos</option>';
   ests.forEach(e => { const o = document.createElement('option'); o.value = e; o.textContent = e; filterEstado.appendChild(o); });
@@ -1147,7 +888,6 @@ function renderTable(tareas) {
     pintarMarcadores([]);
     return;
   }
-
   let html = '';
   tareas.forEach(t => {
     const el = t.Estado.toLowerCase();
@@ -1155,19 +895,15 @@ function renderTable(tareas) {
     if (el.includes('completado')) bClass = 'badge done';
     else if (el.includes('no iniciado')) bClass = 'badge todo';
     else if (el.includes('en curso')) bClass = 'badge doing';
-
     const pl = t.Prioridad.toLowerCase();
     let prClass = 'priority';
     if (pl.includes('urgente')) prClass += ' urgente';
     else if (pl.includes('importante')) prClass += ' importante';
     else if (pl.includes('media')) prClass += ' media';
     else if (pl.includes('baja')) prClass += ' baja';
-
     let tags = '';
     if (t.Etiquetas && t.Etiquetas.trim())
-      tags = `<div class="tags">${t.Etiquetas.split(';').filter(x=>x.trim())
-        .map(x => `<span class="tag">${x.trim()}</span>`).join('')}</div>`;
-
+      tags = `<div class="tags">${t.Etiquetas.split(';').filter(x=>x.trim()).map(x => `<span class="tag">${x.trim()}</span>`).join('')}</div>`;
     const ub = extraerUbicacion(t.TextoUbicacion || t.Nombre);
     let pkHtml = '<span class="pk-pill miss">Sin PK</span>';
     if (ub && ub.carretera && ub.pk !== null) {
@@ -1179,7 +915,6 @@ function renderTable(tareas) {
       } else if (csvCargado && !c) { cls += ' miss'; extra = ' (no en CSV)'; }
       pkHtml = `<span class="${cls}"><b>${ub.carretera}</b> ${ub.pk.toFixed(3)}${extra}</span>`;
     }
-
     const link = construirLinkPlanner(t);
     const btn = link
       ? `<a class="planner-btn" href="${link}" target="_blank" rel="noopener" title="Abrir en Planner">
@@ -1188,13 +923,9 @@ function renderTable(tareas) {
             <polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
           </svg>Abrir</a>`
       : `<span class="planner-btn disabled" title="Configura PLANNER_TENANT o añade columna Link">Sin enlace</span>`;
-
     html += `
       <tr>
-        <td>
-          <div class="task-name">${t.Nombre}</div>
-          ${t.Descripcion ? `<div class="task-desc">${t.Descripcion}</div>` : ''}
-        </td>
+        <td><div class="task-name">${t.Nombre}</div>${t.Descripcion ? `<div class="task-desc">${t.Descripcion}</div>` : ''}</td>
         <td>${pkHtml}</td>
         <td>${t.Deposito}</td>
         <td><span class="${bClass}">${t.Estado}</span></td>
@@ -1211,7 +942,7 @@ function renderTable(tareas) {
 }
 
 // ============================================================
-//  DROPZONE (drag & drop + click)
+//  DROPZONE
 // ============================================================
 function setupDropzone(dz, input, onFile) {
   dz.addEventListener('click', () => input.click());
@@ -1225,17 +956,17 @@ setupDropzone(dzExcel, $('excelUpload'), (f) => handleExcelUpload({ target: { fi
 setupDropzone(dzCsv, $('csvUpload'), (f) => cargarCSV(f));
 
 // ============================================================
-//  FILTROS + BOTONES
+//  BOTONES
 // ============================================================
 filterDeposito.addEventListener('change', applyFilters);
 filterEstado.addEventListener('change', applyFilters);
 filterTexto.addEventListener('input', applyFilters);
 
-$('btnLimpiar')?.addEventListener('click', () => {
-  if (confirm('¿Borrar los datos guardados (tareas e hitos) y empezar de cero?')) {
+$('btnLimpiar')?.addEventListener('click', async () => {
+  if (confirm('¿Borrar los datos guardados (tareas e hitos) del navegador y empezar de cero?')) {
     localStorage.removeItem(LS_TAREAS);
-    localStorage.removeItem(LS_HITOS);
     localStorage.removeItem(LS_ACTUALIZADO);
+    await borrarHitosGuardados();
     location.reload();
   }
 });
@@ -1243,8 +974,43 @@ $('btnLimpiar')?.addEventListener('click', () => {
 $('btnLogout')?.addEventListener('click', cerrarSesion);
 
 // ============================================================
-//  INIT: si hay sesión, arranca; si no, pide contraseña
+//  ARRANQUE
 // ============================================================
+async function arrancarApp() {
+  inicializarMapa();
+
+  // 1) Tareas guardadas
+  const tareas = leerTareas();
+  if (tareas && tareas.length) {
+    currentData.tareas = tareas;
+    tareasCargadas = true;
+    dzExcel.classList.add('loaded');
+    dzExcelBadge.textContent = `${tareas.length} tareas`;
+    dzExcelSub.textContent = 'Datos recuperados de sesión anterior';
+    metaTareas.textContent = tareas.length.toLocaleString('es-ES');
+    populateFilters();
+    applyFilters();
+  }
+
+  // 2) Hitos guardados
+  const hitos = await leerHitos();
+  if (hitos && hitos.length) {
+    indexarHitos(hitos);
+    csvCargado = true;
+    dzCsv.classList.add('loaded');
+    dzCsvBadge.textContent = `${hitos.length} hitos`;
+    dzCsvSub.textContent = 'Datos recuperados';
+    metaHitos.textContent = hitos.length.toLocaleString('es-ES');
+    mapInfo.textContent = `📊 ${hitos.length} hitos · ${Object.keys(hitosPorCarretera).join(', ')}`;
+    if (tareasCargadas) renderTable(filteredTareas);
+  } else if (CSV_URL) {
+    cargarCSVDesdeURL(CSV_URL);
+  }
+
+  // 3) Fecha
+  metaActualizado.textContent = formatearFecha(localStorage.getItem(LS_ACTUALIZADO));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   if (sessionStorage.getItem(SESSION_KEY) === '1') {
     $('loginOverlay').style.display = 'none';
