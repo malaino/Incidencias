@@ -76,9 +76,11 @@ body {
 .brand-text p { font-size: 12.5px; color: #cbd5e1; margin-top: 2px; }
 .header-meta {
   display: flex; gap: 24px; font-size: 12px; color: #cbd5e1;
-  flex-wrap: wrap;
+  flex-wrap: wrap; align-items: center;
 }
 .header-meta b { color: #fff; font-weight: 600; }
+.header-meta .meta-item { display: flex; flex-direction: column; gap: 2px; }
+.header-meta .meta-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; }
 
 /* ---------- Upload ---------- */
 .upload-grid {
@@ -127,7 +129,7 @@ body {
 
 input[type="file"] { display: none; }
 
-/* ---------- Toolbar / filters ---------- */
+/* ---------- Toolbar ---------- */
 .toolbar {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -166,6 +168,19 @@ input[type="file"] { display: none; }
   font-size: 12.5px; color: var(--text-muted);
 }
 .toolbar-stats b { color: var(--text); font-weight: 600; }
+.btn-clear {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-family: inherit;
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-clear:hover { background: var(--danger-bg); border-color: #fecaca; color: var(--danger); }
 
 /* ---------- Map ---------- */
 .map-card {
@@ -319,9 +334,69 @@ tbody tr:last-child td { border-bottom: none; }
 .toast-title { font-weight: 600; margin-bottom: 2px; }
 .toast-msg { font-size: 12.5px; color: var(--text-muted); }
 @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- Login overlay ---------- */
+#loginOverlay {
+  position: fixed; inset: 0; z-index: 99999;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.login-card {
+  background: #fff; border-radius: 14px; padding: 32px 28px;
+  width: 100%; max-width: 340px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  text-align: center;
+}
+.login-icon {
+  width: 48px; height: 48px; margin: 0 auto 16px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+}
+.login-icon svg { width: 24px; height: 24px; color: #fff; }
+.login-card h2 { font-size: 16px; color: #0f172a; margin-bottom: 4px; }
+.login-card p.sub { font-size: 12.5px; color: #64748b; margin-bottom: 20px; }
+.login-card input {
+  width: 100%; padding: 10px 14px; font-size: 16px; letter-spacing: 4px;
+  text-align: center; border: 1px solid #cbd5e1; border-radius: 8px;
+  outline: none; font-family: inherit;
+  transition: border-color .15s, box-shadow .15s;
+}
+.login-card input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+.login-error {
+  color: #dc2626; font-size: 12px; margin-top: 8px; min-height: 16px;
+}
+.login-btn {
+  width: 100%; padding: 10px; margin-top: 8px;
+  background: #2563eb; color: #fff; border: none; border-radius: 8px;
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: background .15s;
+}
+.login-btn:hover { background: #1d4ed8; }
+.login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
 </style>
 </head>
 <body>
+
+<!-- ================= LOGIN OVERLAY ================= -->
+<div id="loginOverlay" style="display:none">
+  <div class="login-card">
+    <div class="login-icon">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    <h2>Acceso restringido</h2>
+    <p class="sub">Introduce la contraseña para continuar</p>
+    <input id="passInput" type="password" autocomplete="current-password" placeholder="Contraseña">
+    <p id="loginError" class="login-error"></p>
+    <button id="loginBtn" class="login-btn">Entrar</button>
+  </div>
+</div>
 
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -342,8 +417,21 @@ tbody tr:last-child td { border-bottom: none; }
       </div>
     </div>
     <div class="header-meta">
-      <span>Hitos CSV: <b id="metaHitos">—</b></span>
-      <span>Tareas: <b id="metaTareas">—</b></span>
+      <div class="meta-item">
+        <span class="meta-label">Hitos CSV</span>
+        <b id="metaHitos">—</b>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tareas</span>
+        <b id="metaTareas">—</b>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Última actualización</span>
+        <b id="metaActualizado">—</b>
+      </div>
+      <button id="btnLogout" class="btn-clear" style="background:transparent;color:#cbd5e1;border-color:#334155" title="Cerrar sesión">
+        🔒 Salir
+      </button>
     </div>
   </header>
 
@@ -400,6 +488,10 @@ tbody tr:last-child td { border-bottom: none; }
       <span><b id="countInfo">0</b> tareas visibles</span>
       <span><b id="countMap">0</b> en mapa</span>
     </div>
+    <button id="btnLimpiar" class="btn-clear" title="Borrar los datos guardados en el navegador">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg>
+      Limpiar datos
+    </button>
   </div>
 
   <!-- ================= MAP ================= -->
@@ -450,9 +542,25 @@ tbody tr:last-child td { border-bottom: none; }
 const CSV_URL = "PK_HECTOMETROS_5m_LO2.csv";
 
 // Base URL de Planner y tenant (cámbialo por el tuyo).
-// Formato final: {PLANNER_BASE_URL}/{PLANNER_TENANT}/Home/Task/{taskId}
 const PLANNER_BASE_URL = "https://tasks.office.com";
-const PLANNER_TENANT   = "TU_TENANT_AQUI"; // ej. "contoso.onmicrosoft.com" o el GUID
+const PLANNER_TENANT   = "TU_TENANT_AQUI";
+
+// ============================================================
+//  CONTRASEÑA (hash SHA-256)
+//  Contraseña actual: RIOja_22
+//  ⚠️ Genera el hash tú mismo en la consola del navegador:
+//     crypto.subtle.digest('SHA-256', new TextEncoder().encode('RIOja_22'))
+//       .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('')))
+//  Y pega el resultado en PASS_HASH.
+//  El valor de abajo es un PLACEHOLDER: sustitúyelo o NO podrás entrar.
+// ============================================================
+const PASS_HASH = "REEMPLAZA_CON_TU_HASH_SHA256";
+const SESSION_KEY = "planner_auth_ok_v1";
+
+// Claves de localStorage
+const LS_TAREAS       = "planner_tareas_v1";
+const LS_HITOS        = "planner_hitos_v1";
+const LS_ACTUALIZADO  = "planner_ultima_actualizacion_v1";
 
 // ============================================================
 //  ESTADO
@@ -475,6 +583,7 @@ const countMap   = $('countMap');
 const mapInfo    = $('mapInfo');
 const metaHitos  = $('metaHitos');
 const metaTareas = $('metaTareas');
+const metaActualizado = $('metaActualizado');
 const dzExcel    = $('dzExcel');
 const dzCsv      = $('dzCsv');
 const dzExcelBadge = $('dzExcelBadge');
@@ -492,6 +601,120 @@ function toast(type, title, msg) {
   $('toastWrap').appendChild(el);
   setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(20px)'; el.style.transition = 'all .3s'; }, 3200);
   setTimeout(() => el.remove(), 3600);
+}
+
+// ============================================================
+//  LOGIN POR CONTRASEÑA
+// ============================================================
+async function sha256Hex(texto) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function mostrarLogin() {
+  const ov = $('loginOverlay');
+  const input = $('passInput');
+  const err = $('loginError');
+  const btn = $('loginBtn');
+  ov.style.display = 'flex';
+
+  if (PASS_HASH === "REEMPLAZA_CON_TU_HASH_SHA256") {
+    err.textContent = "⚠️ Falta configurar PASS_HASH en el código. Genera el hash SHA-256 y pégalo.";
+    btn.disabled = true;
+  }
+
+  async function intentar() {
+    err.textContent = '';
+    const val = input.value;
+    if (!val) { err.textContent = 'Introduce la contraseña'; return; }
+    btn.disabled = true;
+    const hash = await sha256Hex(val);
+    if (hash === PASS_HASH) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      ov.style.display = 'none';
+      arrancarApp();
+    } else {
+      err.textContent = 'Contraseña incorrecta';
+      input.value = '';
+      input.focus();
+      btn.disabled = false;
+    }
+  }
+
+  btn.addEventListener('click', intentar);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') intentar(); });
+  setTimeout(() => input.focus(), 100);
+}
+
+function cerrarSesion() {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+// ============================================================
+//  ARRANQUE DE LA APP (tras login o si ya había sesión)
+// ============================================================
+function arrancarApp() {
+  inicializarMapa();
+
+  // 1) Recuperar tareas
+  const tareasGuardadas = localStorage.getItem(LS_TAREAS);
+  if (tareasGuardadas) {
+    try {
+      const tareas = JSON.parse(tareasGuardadas);
+      currentData.tareas = tareas;
+      tareasCargadas = true;
+      dzExcel.classList.add('loaded');
+      dzExcelBadge.textContent = `${tareas.length} tareas`;
+      dzExcelSub.textContent = 'Datos recuperados de sesión anterior';
+      metaTareas.textContent = tareas.length.toLocaleString('es-ES');
+      populateFilters();
+      applyFilters();
+    } catch (e) { console.warn('Error recuperando tareas', e); }
+  }
+
+  // 2) Recuperar hitos
+  const hitosGuardados = localStorage.getItem(LS_HITOS);
+  if (hitosGuardados) {
+    try {
+      const rows = JSON.parse(hitosGuardados);
+      indexarHitos(rows);
+      csvCargado = true;
+      dzCsv.classList.add('loaded');
+      dzCsvBadge.textContent = `${rows.length} hitos`;
+      dzCsvSub.textContent = 'Datos recuperados';
+      metaHitos.textContent = rows.length.toLocaleString('es-ES');
+      mapInfo.textContent = `📊 ${rows.length} hitos · ${Object.keys(hitosPorCarretera).join(', ')}`;
+      if (tareasCargadas) renderTable(filteredTareas);
+    } catch (e) { console.warn('Error recuperando hitos', e); }
+  } else if (CSV_URL) {
+    cargarCSVDesdeURL(CSV_URL);
+  }
+
+  // 3) Fecha de última actualización
+  const iso = localStorage.getItem(LS_ACTUALIZADO);
+  metaActualizado.textContent = formatearFecha(iso);
+}
+
+// ============================================================
+//  PERSISTENCIA
+// ============================================================
+function guardarTareas(tareas) {
+  try {
+    localStorage.setItem(LS_TAREAS, JSON.stringify(tareas));
+    localStorage.setItem(LS_ACTUALIZADO, new Date().toISOString());
+    metaActualizado.textContent = formatearFecha(new Date().toISOString());
+  } catch (e) { console.warn("No se pudieron guardar las tareas:", e); }
+}
+function guardarHitos(rows) {
+  try { localStorage.setItem(LS_HITOS, JSON.stringify(rows)); }
+  catch (e) { console.warn("No se pudieron guardar los hitos:", e); }
+}
+function formatearFecha(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return '—';
+  return d.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 // ============================================================
@@ -529,18 +752,42 @@ function utmToLatLng(x, y, zone = 30, northern = true) {
 }
 
 // ============================================================
-//  MAPA
+//  MAPA (OSM + PNOA)
 // ============================================================
 let map = null, markersLayer = null;
+
 function inicializarMapa() {
   if (map) return;
-  map = L.map('map', { zoomControl: true }).setView([42.42, -2.35], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
     maxZoom: 19
-  }).addTo(map);
+  });
+
+  const pnoa = L.tileLayer.wms('https://www.ign.es/wms-inspire/pnoa-ma', {
+    layers: 'OI.OrthoimageCoverage',
+    format: 'image/jpeg',
+    transparent: false,
+    version: '1.3.0',
+    attribution: 'PNOA © <a href="https://www.ign.es">IGN</a>',
+    maxZoom: 20
+  });
+
+  map = L.map('map', {
+    center: [42.42, -2.35],
+    zoom: 10,
+    layers: [osm]
+  });
+
+  L.control.layers(
+    { "🗺️ Calles": osm, "🛰️ PNOA (ortofoto)": pnoa },
+    null,
+    { position: 'topright', collapsed: false }
+  ).addTo(map);
+
   markersLayer = L.layerGroup().addTo(map);
 }
+
 function colorPorEstado(estado) {
   const e = (estado || '').toLowerCase();
   if (e.includes('completado')) return '#059669';
@@ -647,6 +894,7 @@ function cargarCSV(file) {
       const rows = parseCSV(e.target.result);
       if (!rows.length) throw new Error('CSV sin filas válidas.');
       indexarHitos(rows);
+      guardarHitos(rows);
       csvCargado = true;
       dzCsv.classList.add('loaded');
       dzCsvBadge.textContent = `${rows.length} hitos`;
@@ -669,6 +917,7 @@ async function cargarCSVDesdeURL(url) {
     const rows = parseCSV(await resp.text());
     if (!rows.length) throw new Error('CSV sin filas válidas.');
     indexarHitos(rows);
+    guardarHitos(rows);
     csvCargado = true;
     dzCsv.classList.add('loaded');
     dzCsvBadge.textContent = `${rows.length} hitos`;
@@ -770,9 +1019,7 @@ function pintarMarcadores(tareas) {
 //  EXCEL
 // ============================================================
 function construirLinkPlanner(t) {
-  // 1) Columna directa en el Excel
   if (t.Link) return t.Link;
-  // 2) Construida con el Id
   if (t.Id && PLANNER_TENANT && PLANNER_TENANT !== 'TU_TENANT_AQUI') {
     return `${PLANNER_BASE_URL}/${PLANNER_TENANT}/Home/Task/${encodeURIComponent(t.Id)}`;
   }
@@ -841,6 +1088,9 @@ function handleExcelUpload(event) {
 
       currentData = { tareas, depositos: depositosMap, usuarios: usuariosMap };
       tareasCargadas = true;
+
+      // Persistir (sobrescribe la caché anterior)
+      guardarTareas(tareas);
 
       dzExcel.classList.add('loaded');
       dzExcelBadge.textContent = `${tareas.length} tareas`;
@@ -975,18 +1225,33 @@ setupDropzone(dzExcel, $('excelUpload'), (f) => handleExcelUpload({ target: { fi
 setupDropzone(dzCsv, $('csvUpload'), (f) => cargarCSV(f));
 
 // ============================================================
-//  FILTROS
+//  FILTROS + BOTONES
 // ============================================================
 filterDeposito.addEventListener('change', applyFilters);
 filterEstado.addEventListener('change', applyFilters);
 filterTexto.addEventListener('input', applyFilters);
 
+$('btnLimpiar')?.addEventListener('click', () => {
+  if (confirm('¿Borrar los datos guardados (tareas e hitos) y empezar de cero?')) {
+    localStorage.removeItem(LS_TAREAS);
+    localStorage.removeItem(LS_HITOS);
+    localStorage.removeItem(LS_ACTUALIZADO);
+    location.reload();
+  }
+});
+
+$('btnLogout')?.addEventListener('click', cerrarSesion);
+
 // ============================================================
-//  INIT
+//  INIT: si hay sesión, arranca; si no, pide contraseña
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  inicializarMapa();
-  if (CSV_URL) cargarCSVDesdeURL(CSV_URL);
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    $('loginOverlay').style.display = 'none';
+    arrancarApp();
+  } else {
+    mostrarLogin();
+  }
 });
 
 window.addEventListener('beforeunload', (e) => {
